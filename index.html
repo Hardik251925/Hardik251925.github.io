@@ -25,13 +25,15 @@
         }
 
         header {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.4) 0%, rgba(118, 75, 162, 0.4) 100%), url('hero-image.png') center/cover no-repeat fixed;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.4) 0%, rgba(118, 75, 162, 0.4) 100%), url('hero-image.png') center left/cover no-repeat;
             color: white;
             padding: 150px 0 120px;
             text-align: center;
             min-height: 500px;
             display: flex;
             align-items: center;
+            background-attachment: scroll;
+            background-position: 30% center;
         }
 
         header .container {
@@ -87,6 +89,16 @@
             position: sticky;
             top: 0;
             z-index: 100;
+        }
+
+        .burger-menu {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 15px 20px;
+            color: #667eea;
         }
 
         nav ul {
@@ -410,6 +422,12 @@
         }
 
         @media (max-width: 768px) {
+            header {
+                background-position: 25% center;
+                padding: 100px 0 80px;
+                min-height: 400px;
+            }
+
             header h1 {
                 font-size: 2.5rem;
             }
@@ -422,12 +440,27 @@
                 font-size: 2rem;
             }
 
+            .burger-menu {
+                display: block;
+            }
+
             nav ul {
                 flex-direction: column;
+                display: none;
+                width: 100%;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                width: 100%;
             }
 
             nav ul li a {
                 border-bottom: 1px solid #eee;
+                width: 100%;
             }
 
             .skills-grid,
@@ -444,6 +477,12 @@
         }
 
         @media (max-width: 480px) {
+            header {
+                background-position: 20% center;
+                padding: 80px 0 60px;
+                min-height: 350px;
+            }
+
             header h1 {
                 font-size: 2rem;
             }
@@ -473,14 +512,15 @@
     </header>
 
     <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#achievements">Achievements</a></li>
-            <li><a href="#certifications">Certifications</a></li>
+        <button class="burger-menu" onclick="toggleMenu()">☰</button>
+        <ul id="nav-menu">
+            <li><a href="#about" onclick="closeMenu()">About</a></li>
+            <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+            <li><a href="#experience" onclick="closeMenu()">Experience</a></li>
+            <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+            <li><a href="#education" onclick="closeMenu()">Education</a></li>
+            <li><a href="#achievements" onclick="closeMenu()">Achievements</a></li>
+            <li><a href="#certifications" onclick="closeMenu()">Certifications</a></li>
         </ul>
     </nav>
 
@@ -745,4 +785,22 @@
                 <a href="/cdn-cgi/l/email-protection#c6aea7b4a2afade8a2aea7aba3aaafbfa7f286a1aba7afaae8a5a9ab">Email</a>
             </div>
             <p>📍 Indore, Madhya Pradesh, India</p>
-            <p
+            <p>© 2024 Hardik Dhameliya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            if (window.innerWidth <= 768) {
+                navMenu.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
