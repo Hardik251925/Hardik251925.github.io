@@ -165,77 +165,114 @@
     /* Hero */
     .hero{padding:54px 0 26px; position:relative}
 
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:-120px -60px auto -60px;
-      height: 420px;
-      background:
-        linear-gradient(90deg, rgba(39,230,255,0.12), rgba(255,61,242,0.08), rgba(124,92,255,0.10)),
-        repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 16px),
-        repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 16px);
-      border-bottom:1px solid rgba(39,230,255,0.12);
-      transform: perspective(900px) rotateX(58deg);
-      transform-origin: top;
-      opacity:0.28;
-      pointer-events:none;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.3fr 0.7fr;
-      gap:22px;
-      align-items:stretch;
+    /* Ubisoft-like hero slider */
+    .hero.hero-ubisoft{padding:0}
+    .hero-slider{
       position:relative;
-    }
-
-    .card{
-      border:1px solid rgba(160,210,255,0.14);
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      position:relative;
+      height: 540px;
+      border-bottom:1px solid rgba(39,230,255,0.14);
       overflow:hidden;
+      background: rgba(0,0,0,0.35);
     }
-
-    .card::before{
-      content:"";
+    .hero-slides{height:100%; width:100%; position:relative}
+    .hero-slide{
       position:absolute;
-      inset:-2px;
-      background: radial-gradient(700px 180px at 20% 0%, rgba(39,230,255,0.10), transparent 55%),
-                  radial-gradient(700px 180px at 80% 0%, rgba(255,61,242,0.08), transparent 60%);
-      opacity:0.7;
-      pointer-events:none;
+      inset:0;
+      opacity:0;
+      transform: scale(1.02);
+      transition: opacity 380ms ease, transform 650ms ease;
+    }
+    .hero-slide.is-active{
+      opacity:1;
+      transform: scale(1);
+    }
+    .hero-slide img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.02);
     }
 
-    .hero-main{padding:24px}
-    .kicker{color:rgba(234,242,255,0.78); font-weight:900; font-size:12px; letter-spacing:1px; text-transform:uppercase}
-
-    h1{margin:10px 0 8px; font-size:40px; line-height:1.1}
-
-    .glow-title{
-      text-shadow: 0 0 18px rgba(39,230,255,0.15), 0 0 34px rgba(255,61,242,0.10);
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:flex-end;
+      padding: 70px 0 44px;
+      background:
+        radial-gradient(900px 520px at 20% 25%, rgba(39,230,255,0.18), transparent 60%),
+        radial-gradient(900px 520px at 80% 25%, rgba(255,61,242,0.14), transparent 60%),
+        linear-gradient(180deg, rgba(7,10,18,0.10) 0%, rgba(7,10,18,0.55) 55%, rgba(7,10,18,0.92) 100%);
     }
 
-    .subtitle{margin:0; color:var(--muted); font-size:16px; max-width:60ch}
-
-    .hero-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
-
-    .hero-side{padding:18px}
-    .side-row{display:flex; flex-direction:column; gap:12px}
-
-    .side-block{padding:14px; border:1px solid rgba(160,210,255,0.14); border-radius:16px; background: rgba(255,255,255,0.03)}
-    .side-title{font-weight:900; margin:0 0 8px; font-size:14px}
-    .side-text{margin:0; color:var(--muted); font-size:13px}
-
-    .resume-cta{
-      display:flex; flex-direction:column; gap:10px;
-      padding:16px;
-      border-radius: 16px;
-      border:1px solid rgba(39,230,255,0.35);
-      background: linear-gradient(135deg, rgba(39,230,255,0.14), rgba(255,61,242,0.06));
+    .hero-copy{max-width: 720px}
+    .hero-kicker{
+      color: rgba(234,242,255,0.80);
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      margin-bottom:10px;
     }
-    .resume-cta strong{font-size:14px}
+    .hero-title{
+      margin:0 0 10px;
+      font-size:48px;
+      line-height:1.05;
+      text-shadow: 0 0 18px rgba(39,230,255,0.12), 0 0 34px rgba(255,61,242,0.10);
+    }
+    .hero-sub{
+      margin:0;
+      color: rgba(234,242,255,0.78);
+      font-size:16px;
+      max-width: 65ch;
+    }
+    .hero-cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+
+    .hero-nav{
+      position:absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width:44px;
+      height:44px;
+      border-radius:999px;
+      border:1px solid rgba(160,210,255,0.22);
+      background: rgba(7,10,18,0.35);
+      color: rgba(234,242,255,0.92);
+      font-size:26px;
+      font-weight:900;
+      cursor:pointer;
+      backdrop-filter: blur(8px);
+    }
+    .hero-nav:hover{background: rgba(7,10,18,0.55); border-color: rgba(39,230,255,0.28)}
+    .hero-nav.prev{left:16px}
+    .hero-nav.next{right:16px}
+
+    .hero-dots{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom: 18px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      padding: 0 18px;
+    }
+    .hero-dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      border:1px solid rgba(160,210,255,0.22);
+      background: rgba(255,255,255,0.12);
+      cursor:pointer;
+    }
+    .hero-dot.is-active{
+      background: linear-gradient(135deg, rgba(39,230,255,0.70), rgba(255,61,242,0.55));
+      border-color: rgba(39,230,255,0.35);
+      box-shadow: 0 0 0 4px rgba(39,230,255,0.12);
+    }
+
+    /* Old hero layout kept for compatibility (unused) */
 
     /* Sections */
     section{padding:28px 0}
@@ -434,54 +471,45 @@
   </div>
 
   <!-- HERO -->
-  <main id="top" class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="card hero-main">
-          <div class="kicker">Unity Developer • WebGL Metaverse • Mobile Games</div>
-          <h1 class="glow-title">Unity Developer building high-performance games and WebGL metaverse experiences.</h1>
-          <p class="subtitle">
-            I work on Unity (C#), WebGL metaverse builds, and mobile games. Below are my featured projects with live links.
-          </p>
+  <main id="top" class="hero hero-ubisoft">
+    <div class="hero-slider" id="heroSlider" aria-label="Featured work slider">
+      <div class="hero-slides">
+        <div class="hero-slide is-active">
+          <img src="assets/projects/xana-xana.jpg" alt="XANA" />
+        </div>
+        <div class="hero-slide">
+          <img src="assets/projects/1-little-guardian.jpg" alt="Little Guardian" />
+        </div>
+        <div class="hero-slide">
+          <img src="assets/projects/10-nftduel.jpg" alt="NFTDUEL" />
+        </div>
+        <div class="hero-slide">
+          <img src="assets/projects/7-battle-fortresses.jpg" alt="Battle of Fortresses: TD Games" />
+        </div>
+        <div class="hero-slide">
+          <img src="assets/projects/11-penpenz.jpg" alt="Penpenz" />
+        </div>
+      </div>
 
-          <div class="hero-actions">
-            <a class="btn success" href="#projects">View Projects</a>
-            <a class="btn" href="#contact">Contact</a>
-            <a class="btn primary" href="resume.pdf" download>Download Resume</a>
-          <a class="btn" href="cover-letter.pdf" download>Download Cover Letter</a>
-          </div>
+      <div class="hero-overlay">
+        <div class="container">
+          <div class="hero-copy">
+            <div class="hero-kicker">Unity Developer • WebGL Metaverse • Mobile Games</div>
+            <h1 class="hero-title">Hardik Dhameliya</h1>
+            <p class="hero-sub">Building high-performance games and metaverse experiences in Unity (C#) with clean gameplay, UI, and production-ready builds.</p>
 
-          <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:10px;">
-            <span class="pill">Unity • C#</span>
-            <span class="pill">WebGL</span>
-            <span class="pill">Mobile (Android)</span>
-            <span class="pill">Optimization</span>
+            <div class="hero-cta">
+              <a class="btn primary" href="#projects">View Projects</a>
+              <a class="btn" href="resume.pdf" download>Download Resume</a>
+              <a class="btn" href="cover-letter.pdf" download>Download Cover Letter</a>
+            </div>
           </div>
         </div>
-
-        <aside class="card hero-side">
-          <div class="side-row">
-            <div class="resume-cta">
-              <strong>Resume</strong>
-              <div class="side-text">
-                Put your files as <b>resume.pdf</b> and <b>cover-letter.pdf</b> in the same folder as this page, then the buttons will work.
-              </div>
-              <a class="btn primary" href="resume.pdf" download>Download Resume</a>
-          <a class="btn" href="cover-letter.pdf" download>Download Cover Letter</a>
-            </div>
-
-            <div class="side-block">
-              <p class="side-title">What I do</p>
-              <p class="side-text">Gameplay systems, UI, performance, WebGL builds, and end-to-end releases.</p>
-            </div>
-
-            <div class="side-block">
-              <p class="side-title">Availability</p>
-              <p class="side-text">Freelance / Full-time opportunities — open to game & metaverse work.</p>
-            </div>
-          </div>
-        </aside>
       </div>
+
+      <button class="hero-nav prev" type="button" aria-label="Previous slide">‹</button>
+      <button class="hero-nav next" type="button" aria-label="Next slide">›</button>
+      <div class="hero-dots" aria-label="Slider navigation"></div>
     </div>
   </main>
 
@@ -821,6 +849,75 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
     });
+
+    // Ubisoft-like hero slider
+    (function initHeroSlider(){
+      const slider = document.getElementById('heroSlider');
+      if (!slider) return;
+
+      const slides = Array.from(slider.querySelectorAll('.hero-slide'));
+      const dotsWrap = slider.querySelector('.hero-dots');
+      const prevBtn = slider.querySelector('.hero-nav.prev');
+      const nextBtn = slider.querySelector('.hero-nav.next');
+
+      let idx = 0;
+      let timer = null;
+      const intervalMs = 4200;
+
+      function setActive(next){
+        slides[idx].classList.remove('is-active');
+        dotsWrap?.children[idx]?.classList.remove('is-active');
+
+        idx = (next + slides.length) % slides.length;
+
+        slides[idx].classList.add('is-active');
+        dotsWrap?.children[idx]?.classList.add('is-active');
+      }
+
+      function start(){
+        stop();
+        timer = setInterval(() => setActive(idx + 1), intervalMs);
+      }
+
+      function stop(){
+        if (timer) clearInterval(timer);
+        timer = null;
+      }
+
+      // Build dots
+      if (dotsWrap){
+        dotsWrap.innerHTML = '';
+        slides.forEach((_, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'hero-dot' + (i === 0 ? ' is-active' : '');
+          b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+          b.addEventListener('click', () => { setActive(i); start(); });
+          dotsWrap.appendChild(b);
+        });
+      }
+
+      prevBtn?.addEventListener('click', () => { setActive(idx - 1); start(); });
+      nextBtn?.addEventListener('click', () => { setActive(idx + 1); start(); });
+
+      // Pause on hover (desktop)
+      slider.addEventListener('mouseenter', stop);
+      slider.addEventListener('mouseleave', start);
+
+      // Touch swipe (mobile)
+      let startX = 0;
+      slider.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, {passive:true});
+      slider.addEventListener('touchend', (e) => {
+        const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
+        const dx = endX - startX;
+        if (Math.abs(dx) > 40){
+          setActive(dx > 0 ? idx - 1 : idx + 1);
+          start();
+        }
+      });
+
+      start();
+    })();
   </script>
 </body>
 </html>
